@@ -23,6 +23,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
+
+  <nav>
+    <div id="nav-bar" class="flex items-center w-full px-6">
+      <h1 class="text-[#2563EB] font-bold">Expense Tracker</h1>
+      <ul class="ml-auto flex gap-16">
+        <li><h2 class="text-[#4B5563]">Expense</h2></li>
+        <li><h2 class="text-[#4B5563]">Categories</h2></li>
+        <li><h2 class="text-[#EF4444]">Logout</h2></li>
+      </ul>
+    </div>
+  </nav>
+
   <body>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
