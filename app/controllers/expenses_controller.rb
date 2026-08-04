@@ -25,7 +25,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to @expense, notice: "Expense was successfully created." }
+        format.html { redirect_to expenses_path, notice: "Expense was successfully created." }
         format.json { render :show, status: :created, location: @expense }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -52,7 +52,7 @@ class ExpensesController < ApplicationController
     @expense.destroy!
 
     respond_to do |format|
-      format.html { redirect_to expenses_path, notice: "Expense was successfully destroyed.", status: :see_other }
+      format.html { redirect_to expenses_path, notice: "Expense was successfully deleted.", status: :see_other }
       format.json { head :no_content }
     end
   end
