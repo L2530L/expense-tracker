@@ -17,10 +17,10 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create expense" do
     assert_difference("Expense.count") do
-      post expenses_url, params: { expense: { amount: @expense.amount, expense_date: @expense.expense_date, note: @expense.note, title: @expense.title } }
+      post expenses_url, params: { expense: { amount: @expense.amount, expense_date: @expense.expense_date, note: @expense.note, title: @expense.title, category_id: categories(:one).id } }
     end
 
-    assert_redirected_to expense_url(Expense.last)
+    assert_redirected_to expenses_path
   end
 
   test "should show expense" do
