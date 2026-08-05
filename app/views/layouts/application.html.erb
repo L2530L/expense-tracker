@@ -28,11 +28,19 @@
   <body class="bg-gray-50 min-h-screen">
   <nav class="shadow-sm p-3">
     <div id="nav-bar" class="flex items-center w-full px-6">
-      <h1 class="text-[#2563EB] font-bold">Expense Tracker</h1>
+      <h1 class="text-[#2563EB] font-bold text-xl">Expense Tracker</h1>
       <ul class="ml-auto flex gap-16">
-        <li><h2 class="text-[#4B5563]">Expense</h2></li>
-        <li><h2 class="text-[#4B5563]">Categories</h2></li>
-        <li><h2 class="text-[#EF4444]">Logout</h2></li>
+        <li>
+          <%= link_to "Expenses", expenses_path, class: "text-[#4B5563]" %>
+        </li>
+
+        <li>
+          <%= link_to "Categories", categories_path, class: "text-[#4B5563]" %>
+        </li>
+
+        <li>
+          <%= link_to "Logout", "#", class: "text-[#EF4444]" %>
+        </li>
       </ul>
     </div>
   </nav>
