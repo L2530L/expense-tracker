@@ -2,6 +2,9 @@ require "test_helper"
 
 class ExpensesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = users(:one)
+    sign_in @user
+
     @expense = expenses(:one)
   end
 
@@ -35,7 +38,7 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update expense" do
     patch expense_url(@expense), params: { expense: { amount: @expense.amount, expense_date: @expense.expense_date, note: @expense.note, title: @expense.title } }
-    assert_redirected_to expense_url(@expense)
+    assert_redirected_to expense_url(expanses_url)
   end
 
   test "should destroy expense" do
