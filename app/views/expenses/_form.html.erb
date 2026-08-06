@@ -1,45 +1,74 @@
-<%= form_with(model: expense, class: "contents") do |form| %>
-  <% if expense.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+<%= form_with(model: expense, class: "max-w-md mx-auto mt-10 px-6") do |form| %>
 
-      <ul class="list-disc ml-6">
-        <% expense.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+
+
+  <div class="bg-white p-6 rounded shadow-sm border">
+    <h1 class="text-xl font-bold mb-6 text-gray-700">
+      <%= expense.persisted? ? "Edit Expense" : "Add New Expense" %>
+    </h1>
+
+    <% if expense.errors.any? %>
+      <div class="bg-red-50 text-red-600 p-3 rounded mb-6">
+        <h2 class="font-semibold mb-2">
+          <%= pluralize(expense.errors.count, "error") %> prohibited this expense from being saved:
+        </h2>
+
+        <ul class="list-disc ml-5">
+          <% expense.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-2">
+
+      <div>
+        <%= form.label :title, class: "block text-xs font-bold text-gray-500 uppercase tracking-wide" %>
+        <%= form.text_field :title,
+          placeholder: "e.g. Lunch",
+          class: "w-full p-2 border rounded mt-1 focus:border-blue-500 outline-none #{expense.errors[:title].any? ? 'border-red-400' : 'border-gray-300'}" %>
+      </div>
+
+      <div>
+        <%= form.label :amount, class: "block text-xs font-bold text-gray-500 uppercase tracking-wide" %>
+        <%= form.number_field :amount,
+          step: 0.01,
+          placeholder: "0.00",
+          class: "w-full p-2 border rounded mt-1 focus:border-blue-500 outline-none #{expense.errors[:amount].any? ? 'border-red-400' : 'border-gray-300'}" %>
+      </div>
+
+      <div>
+        <%= form.label :expense_date, "Date", class: "block text-xs font-bold text-gray-500 uppercase tracking-wide" %>
+        <%= form.date_field :expense_date,
+          class: "w-full p-2 border rounded mt-1 focus:border-blue-500 outline-none #{expense.errors[:expense_date].any? ? 'border-red-400' : 'border-gray-300'}" %>
+      </div>
+
+      <div>
+        <%= form.label :category_id, "Category", class: "block text-xs font-bold text-gray-500 uppercase tracking-wide" %>
+        <%= form.collection_select :category_id,
+            Category.order(:name),
+            :id,
+            :name,
+            { prompt: "Select a category" },
+            { class: "w-full p-2 border rounded mt-1 bg-white focus:border-blue-500 outline-none #{expense.errors[:category_id].any? ? 'border-red-400' : 'border-gray-300'}" } %>
+      </div>
+
+      <div>
+        <%= form.label :note, class: "block text-xs font-bold text-gray-500 uppercase tracking-wide" %>
+        <%= form.text_area :note,
+          rows: 4,
+          placeholder: "Optional notes...",
+          class: "w-full p-2 border rounded mt-1 focus:border-blue-500 outline-none #{expense.errors[:note].any? ? 'border-red-400' : 'border-gray-300'}" %>
+      </div>
+
+      <%= form.submit expense.persisted? ? "Update Expense" : "Save Expense",
+          class: "w-full bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 cursor-pointer mt-4" %>
+
+      <%= link_to "Cancel", expenses_path,
+          class: "block text-center text-gray-500 text-sm mt-2 hover:underline" %>
+
     </div>
-  <% end %>
-
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": expense.errors[:title].none?, "border-red-400 focus:outline-red-600": expense.errors[:title].any?}] %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": expense.errors[:amount].none?, "border-red-400 focus:outline-red-600": expense.errors[:amount].any?}] %>
-  </div>
-
- 
-  <div class="my-5">
-    <%= form.label :category_id, "Category" %>
-    <%= form.collection_select :category_id, Category.order(:name), :id, :name, 
-        { prompt: "Select a category" }, 
-        { class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full bg-white", {"border-gray-400 focus:outline-blue-600": expense.errors[:category_id].none?, "border-red-400 focus:outline-red-600": expense.errors[:category_id].any?}] } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :expense_date %>
-    <%= form.date_field :expense_date, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": expense.errors[:expense_date].none?, "border-red-400 focus:outline-red-600": expense.errors[:expense_date].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :note %>
-    <%= form.textarea :note, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": expense.errors[:note].none?, "border-red-400 focus:outline-red-600": expense.errors[:note].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
 <% end %>

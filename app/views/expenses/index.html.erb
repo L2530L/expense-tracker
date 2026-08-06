@@ -1,90 +1,73 @@
 <% content_for :title, "Expenses" %>
 
-
 <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6 justify-center">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
-
-  
 
   <div class="flex justify-between items-center py-6">
     <h1 class="font-bold text-4xl">Expenses</h1>
     <%= link_to "New expense", new_expense_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
-
   <div class="py-6 shadow-sm">
     <h2 class="font-bold text-[#6B7280]">Total Expenses</h2>
     <%= number_to_currency(@expenses.sum(&:amount)) %>
   </div>
-  
 
-  <div id="expenses" class="min-w-full divide-y divide-gray-200 space-y-5 ">
+  <div id="expenses" class="min-w-full divide-y divide-gray-200 space-y-5">
     <% if @expenses.any? %>
-      <% @expenses.each do |expense| %>
-        <div class="overflow-x-auto bg-white rounded-xl border border-gray-200 shadow-sm">
-          <table class="w-full text-left border-collapse">
-            <!-- Table Header -->
-            <thead class="bg-gray-50/80 border-b border-gray-200 text-gray-800 font-bold text-sm">
-              <tr>
-                <th class="py-4 px-6">Title</th>
-                <th class="py-4 px-6">Category</th>
-                <th class="py-4 px-6">Date</th>
-                <th class="py-4 px-6">Amount</th>
-                <th class="py-4 px-6">Actions</th>
+      <div class="overflow-x-auto bg-white rounded-xl border border-gray-200 shadow-sm">
+        <table class="w-full text-left border-collapse">
+          <!-- Table Header -->
+          <thead class="bg-gray-50/80 border-b border-gray-200 text-gray-800 font-bold text-sm">
+            <tr>
+              <th class="py-4 px-6">Title</th>
+              <th class="py-4 px-6">Category</th>
+              <th class="py-4 px-6">Date</th>
+              <th class="py-4 px-6">Amount</th>
+              <th class="py-4 px-6">Actions</th>
+            </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody class="divide-y divide-gray-100 text-sm">
+            <% @expenses.each do |expense| %>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <!-- Title -->
+                <td class="py-4 px-6 font-medium text-gray-900">
+                  <%= link_to expense.title, expense, class: "hover:text-blue-600" %>
+                </td>
+
+                <!-- Category -->
+                <td class="py-4 px-6 text-gray-400">
+                  <%= expense.category&.name || "Uncategorized" %>
+                </td>
+
+                <!-- Date -->
+                <td class="py-4 px-6 text-gray-400">
+                  <%= expense.expense_date %>
+                </td>
+
+                <!-- Amount -->
+                <td class="py-4 px-6 font-bold text-red-600">
+                  -<%= number_to_currency(expense.amount) %>
+                </td>
+
+                <!-- Actions -->
+                <td class="py-4 px-6">
+                  <div class="flex items-center space-x-3">
+                    <%= link_to "Edit", edit_expense_path(expense), class: "text-blue-500 hover:text-blue-700 font-medium" %>
+                    <%= button_to "Delete", expense, method: :delete, class: "text-red-400 hover:text-red-600 font-medium bg-transparent border-0 p-0 cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+                  </div>
+                </td>
               </tr>
-            </thead>
-
-            <!-- Table Body -->
-            <tbody class="divide-y divide-gray-100 text-sm">
-              <% if @expenses.any? %>
-                <% @expenses.each do |expense| %>
-                  <tr class="hover:bg-gray-50/50 transition-colors">
-                    <!-- Title -->
-                    <td class="py-4 px-6 font-medium text-gray-900">
-                      <%= link_to expense.title, expense, class: "hover:text-blue-600" %>
-                    </td>
-
-                    <!-- Category -->
-                    <td class="py-4 px-6 text-gray-400">
-                      <%= expense.category&.name || "Uncategorized" %>
-                    </td>
-
-                    <!-- Date -->
-                    <td class="py-4 px-6 text-gray-400">
-                      <%= expense.expense_date %>
-                    </td>
-
-                    <!-- Amount -->
-                    <td class="py-4 px-6 font-bold text-red-600">
-                      -<%= number_to_currency(expense.amount) %>
-                    </td>
-
-                    <!-- Actions -->
-                    <td class="py-4 px-6">
-                      <div class="flex items-center space-x-3">
-                        <%= link_to "Edit", edit_expense_path(expense), class: "text-blue-500 hover:text-blue-700 font-medium" %>
-                        <%= button_to "Delete", expense, method: :delete, class: "text-red-400 hover:text-red-600 font-medium bg-transparent border-0 p-0 cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-                      </div>
-                    </td>
-                  </tr>
-                <% end %>
-              <% else %>
-                <tr>
-                  <td colspan="5" class="py-10 text-center text-gray-500">
-                    No expenses found.
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     <% else %>
       <p class="text-center my-10">No expenses found.</p>
     <% end %>
   </div>
 </div>
-
-
