@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @categories = Category.all
+    @categories = current_user.categories
   end
 
   def show
@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.build(category_params)
     if @category.save
       # code to set up congratulations message
       flash[:success] = "Category created successfully"
@@ -47,7 +47,7 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
   end
 
   def category_params
