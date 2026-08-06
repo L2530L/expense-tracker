@@ -1,0 +1,42 @@
+
+<div class="min-h-screen flex items-center justify-center flex-col">
+
+  <div class="w-full max-w-sm sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto my-auto p-6 bg-white rounded-xl shadow-md ">
+
+
+    <h2 class="text-center text-2xl font-bold text-[#2563EB] m-2">Expense Tracker</h2>
+    <h2 class="text-center text-xl font-bold m-2">Sign up</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+
+      <div class="flex flex-col gap-4 items-center text-center">
+        <div class="field w-full">
+          <p><%= f.label :email %></p>
+          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border h-[42px]" %></p>
+        </div>
+
+        <div class="field w-full">
+          <p><%= f.label :password %></p>
+          <% if @minimum_password_length %>
+            <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+          <% end %>
+          <p><%= f.password_field :password, autocomplete: "new-password", class: "w-full border h-[42px]" %></p>
+        </div>
+
+        <div class="field w-full">
+          <p><%= f.label :password_confirmation %></p>
+          <p><%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border h-[42px]" %></p>
+        </div>
+
+        <div class="actions flex text-white actions h-[42px] w-full bg-[#2563EB] justify-center item-center">
+          <%= f.submit "Sign up" %>
+        </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+
+      </div>
+  </div>
+</div>
