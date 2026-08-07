@@ -1,24 +1,139 @@
-# README
+# Expense Tracker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple expense tracking application built with **Ruby on Rails 8**. Users can create categories, record expenses, edit or delete them, and organize their spending through a clean interface styled with Tailwind CSS.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- User authentication with Devise
+- Create, edit, and delete expense categories
+- Create, edit, and delete expenses
+- Assign expenses to categories
+- View all recorded expenses
+- Responsive UI using Tailwind CSS
 
-* System dependencies
+## Tech Stack
 
-* Configuration
+- Ruby 3.4.6
+- Ruby on Rails 8.1
+- PostgreSQL
+- Tailwind CSS
+- Devise
+- Minitest
 
-* Database creation
+## System Dependencies
 
-* Database initialization
+- Ruby 3.4.6
+- PostgreSQL
+- Node.js (for Rails frontend tooling)
+- Bundler
 
-* How to run the test suite
+## Installation
 
-* Services (job queues, cache servers, search engines, etc.)
+Clone the repository:
 
-* Deployment instructions
+```bash
+git clone <repository-url>
+cd expense_tracker
+```
 
-* ...
+Install dependencies:
+
+```bash
+bundle install
+```
+
+Create and set up the database:
+
+```bash
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+```
+
+## Running the Application
+
+Start the Rails server:
+
+```bash
+bin/dev
+```
+
+or
+
+```bash
+bin/rails server
+```
+
+Visit:
+
+```
+http://localhost:3000
+```
+
+## Running Tests
+
+Prepare the test database:
+
+```bash
+bin/rails db:test:prepare
+```
+
+Run all tests:
+
+```bash
+bin/rails test
+```
+
+Run controller tests only:
+
+```bash
+bin/rails test test/controllers
+```
+
+Run a specific test file:
+
+```bash
+bin/rails test test/controllers/expenses_controller_test.rb
+```
+
+## Code Quality
+
+Run RuboCop:
+
+```bash
+bin/rubocop
+```
+
+Run Brakeman:
+
+```bash
+bin/brakeman --no-pager
+```
+
+Run Bundler Audit:
+
+```bash
+bin/bundler-audit
+```
+
+## Database
+
+This application uses PostgreSQL.
+
+Create and migrate the database with:
+
+```bash
+bin/rails db:create
+bin/rails db:migrate
+```
+
+## Deployment
+
+The application is configured for deployment using standard Rails deployment practices. Ensure the following environment variables are configured:
+
+- `RAILS_MASTER_KEY`
+- Database credentials
+
+## Author
+
+Developed as part of a Ruby on Rails learning project and OJT training.
